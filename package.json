@@ -1,23 +1,54 @@
 {
-  "name": "react-pro",
+  "name": "KiraPlayer",
   "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-scripts": "3.3.0"
-  },
+  "description": "A minimal Electron application",
+  "author": "cchealthier",
+  "main": "electron.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start:react": "react-scripts start",
+    "start:elec": "cross-env NODE_ENV=development electron .",
+    "start": "npm run start:react | npm run start:elec",
+    "clean": "rm -rf dist",
+    "build:react": "react-scripts build",
+    "prebuild:elec": "node pack/index.js",
+    "build:elec": "cross-env NODE_ENV=production electron-builder --win --ia32",
+    "build": "npm run clean && npm run build:react && npm run build:elec",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "homepage": "./",
+  "build": {
+    "productName": "KiraPlayer",
+    "copyright": "I say what is what",
+    "directories": {
+      "output": "dist"
+    },
+    "appId": "com.KiraPlayer.app",
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "win": {
+      "icon": "./build/kira.ico",
+      "target": [
+        "nsis",
+        "zip"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "kira"
+    }
   },
   "browserslist": {
     "production": [
@@ -30,5 +61,19 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-scripts": "3.3.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "electron": "8.0.3",
+    "electron-builder": "^22.4.0",
+    "fs-extra": "^8.1.0"
   }
 }
