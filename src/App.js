@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import './App.css'
+import Tape from './components/tape'
+import Info from './components/info'
+import Control from './components/control'
+import List from './components/list'
+import connect from './redux/connect'
 
-function App() {
+function App(props, context) {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="player">
+        <Tape></Tape>
+        <Info></Info>
+        <Control></Control>
+      </div>
+      <List></List>
     </div>
-  );
+  )
 }
 
-export default App;
+export default connect(App)

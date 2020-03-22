@@ -7,10 +7,11 @@ process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 1020,
-    height: 600,
+    width: 1150,
+    height: 750,
     resizable: false,
     webPreferences: {
+      webSecurity: false,
       preload: path.join(__dirname, 'main/preload.js')
     }
   })
