@@ -12,15 +12,15 @@ function createWindow () {
     resizable: false,
     webPreferences: {
       webSecurity: false,
-      preload: path.join(__dirname, 'main/preload.js')
+      preload: path.join(__dirname, 'app/preload.js')
     }
   })
   if (process.env.NODE_ENV === 'development') {
-    mainWindow.loadURL('http://localhost:3000/')
+    mainWindow.loadURL('http://localhost:3456/')
   } else {
     mainWindow.loadFile('./build/index.html')
   }
-  
+  // mainWindow.loadFile('index.html')
   // and load the index.html of the app.
   
 
