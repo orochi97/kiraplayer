@@ -8,28 +8,28 @@ import Audio from '../audio'
 import connect from '../../redux/connect'
 import EventBus from '../../utils/event-bus'
 
+function loading(flag) {
+  const dom = document.getElementById('loading')
+  dom.style.display = flag ? 'block' : 'none'
+}
+
 class App extends Component {
   constructor(props){
     super(props)
-    this._loading = true
-    this.state = {
-      done: false
-    }
+    this.state = {}
   }
   componentDidMount() {
-    this._loading = false
-    this.setState({ done: true })
+    loading(false)
     EventBus.on('chooseDir', () => {
-      this._loading = true
+      loading(true)
     })
     EventBus.on('updateMusicList', () => {
-      this._loading = false
+      loading(false)
     })
   }
   render() {
     return (
       <div className="App">
-        <div className="alert" style={{display:`${this._loading?'block':'none'}`}}></div>
         <div className="player">
           <Audio></Audio>
           <Tape></Tape>
