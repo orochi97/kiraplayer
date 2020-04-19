@@ -5,7 +5,7 @@
   "author": "cchealthier",
   "main": "electron.js",
   "scripts": {
-    "start:react": "react-scripts start",
+    "start:react": "set PORT=8080 && react-scripts start",
     "start:elec": "cross-env NODE_ENV=development electron .",
     "start": "npm run start:react | npm run start:elec",
     "clean": "rm -rf dist",
@@ -27,6 +27,9 @@
       "output": "dist"
     },
     "appId": "com.KiraPlayer.app",
+    "files": [
+      "service/*"
+    ],
     "mac": {
       "target": [
         "dmg",

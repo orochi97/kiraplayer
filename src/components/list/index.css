@@ -1,0 +1,82 @@
+/* 歌曲列表样式 */
+.song-list {
+    user-select: none;
+    width: 400px;
+    height: 600px;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    float: left;
+    background-color: #fff;
+    position: relative;
+}
+#fileDialog > input[type=file] {
+    display: none;
+}
+.song-list .song {
+    padding-top: 20px;
+    height: 530px;
+    position: relative;
+    bottom: 0;
+    overflow: auto;
+}
+.song-list .song::-webkit-scrollbar {
+        width:10px;
+        height:10px;
+    }
+.song-list .song::-webkit-scrollbar-button    {
+    background-color: #bbbec4;
+}
+.song-list .song::-webkit-scrollbar-track     {
+    background: #a1c5ea;
+}
+.song-list .song::-webkit-scrollbar-thumb{
+    background: #5cadff;
+    border-radius: 4px;
+}
+/*.song-list .song::-webkit-scrollbar-corner {
+    background:#82AFFF;
+}
+.song-list .song::-webkit-scrollbar-resizer  {
+    background:#FF0BEE;
+}*/
+.song-list .one-song {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-top: 1px solid #bbbec4;
+}
+.song-list .one-song:nth-child(even) {
+    background-color: #f8f8f9;
+}
+.song-list .song > span {
+    float: left;
+}
+.song-list .song .index {
+    width: 50px;
+    text-align: right;
+}
+.song-list .song .title {
+    width: 260px;
+    font-weight: bold;
+    text-align: center;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    cursor: pointer;
+}
+.song-list .song .total {
+    float: right;
+    width: 50px;
+    text-align: left;
+}
+.song-list .song .active { 
+    animation: flash 1s infinite; 
+    background: #00FF00; 
+    color: #fff;
+    border-radius: 10px;
+}
+@keyframes flash {
+    0%{text-shadow: 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff, 0 0 5px   #ff00de, 0 0 5px #ff00de;color:black;}
+    50%{text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 5px #fff, 0 0 40px    #ff00de, 0 0 70px #ff00de; color:white;}    
+    100%{text-shadow: 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff, 0 0 5px     #ff00de, 0 0 5px #ff00de;color:black;}
+}

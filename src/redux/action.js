@@ -1,5 +1,3 @@
-import EventBus from '../utils/event-bus'
-
 // Action
 export const choose = (index) => {
 	return {
@@ -15,7 +13,37 @@ export const updateMusicList = (config) => {
 	}
 }
 
-// EventBus.on('musicList', (data) => {
-// 	console.log(111)
-// 	setMusicList(data)
-// })
+export const changeState = (playState) => {
+	return {
+		type: 'changeState',
+		playState
+	}
+}
+
+export const changeCurrentTime = (currentTime) => {
+	return {
+		type: 'changeCurrentTime',
+		currentTime
+	}
+}
+
+export const changeCurrentSong = (currentSong) => {
+	return {
+		type: 'changeCurrentSong',
+		currentSong
+	}
+}
+
+export const changeCurrentDuration = (currentDuration) => {
+	return {
+		type: 'changeCurrentDuration',
+		currentDuration
+	}
+}
+
+export const changeVolume = (volume) => {
+	return {
+		type: 'changeVolume',
+		volume
+	}
+}

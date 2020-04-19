@@ -8,8 +8,8 @@ fse.ensureDirSync(buildPath)
 fse.emptyDirSync(distPath)
 
 console.info('=== 拷贝文件 到 build文件夹 ===>')
-const mainSrcPath = path.join(process.cwd(), 'main')
-const mainDestPath = path.join(buildPath, 'main')
+const mainSrcPath = path.join(process.cwd(), 'service')
+const mainDestPath = path.join(buildPath, 'service')
 fse.copySync(mainSrcPath, mainDestPath)
 
 console.info('=== 拷贝 electron.js 到 build文件夹 ===>')

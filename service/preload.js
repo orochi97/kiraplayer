@@ -9,21 +9,22 @@ const { setConfig, getConfig, getMusicList } = require('./file.js')
 const config = getConfig()
 
 async function importMusic(dir) {
-	const musicList = await getMusicList(dir)
+	const { musicList, sort } = await getMusicList(dir)
 	config.musicList = musicList
+	config.sort = sort
 	EventBus.emit('updateMusicList', config)
 	setConfig(config)
 }
-
-EventBus.on('chooseDir', (dir) => {
-	importMusic(dir)
-})
 
 window.EventBus = EventBus
 window.require = require
 window.getSystemInfo = function () {
 	return config
 }
+
+EventBus.on('chooseDir', (dir) => {
+	importMusic(dir)
+})
 
 // const ipcMain = require('electron').remote.ipcMain;
 // ipcMain.on('asynchronous-message', function(event, arg) {

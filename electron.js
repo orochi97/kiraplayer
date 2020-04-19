@@ -8,17 +8,18 @@ function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 1150,
-    height: 750,
+    height: 760,
     resizable: false,
     webPreferences: {
       webSecurity: false,
-      preload: path.join(__dirname, 'app/preload.js')
+      preload: path.join(__dirname, 'service/preload.js')
     }
   })
   if (process.env.NODE_ENV === 'development') {
-    mainWindow.loadURL('http://localhost:3456/')
+    mainWindow.loadURL('http://localhost:8080/')
   } else {
     mainWindow.loadFile('./build/index.html')
+    mainWindow.setMenu(null)
   }
   // mainWindow.loadFile('index.html')
   // and load the index.html of the app.
