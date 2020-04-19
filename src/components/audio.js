@@ -8,14 +8,17 @@ class Audio extends Component {
     super(props)
     this.timer = null
     this.currentSong = -1
-    this._watch = ''
+    this._playState = ''
   }
   componentWillUpdate(nextProps) {
-    this._watch = nextProps.playState
+    this._playState = nextProps.playState
   }
   componentDidUpdate(prevProps) {
-    if (this._watch !== prevProps.playState) {
-      this.playStateChanged(this._watch)
+    if (this._playState === 'init') {
+      this.currentSong = -1
+    }
+    if (this._playState !== prevProps.playState) {
+      this.playStateChanged(this._playState)
     }
     this.setVolume()
   }
@@ -70,11 +73,12 @@ class Audio extends Component {
     } 
   }
   setVolume() {
-    this.refs.audio.volume = 0//this.props.volume / 10
+    this.refs.audio.volume = this.props.volume / 10
   }
   render() {
     const { musicList, currentSong } = this.props
     const music = musicList.length ? musicList[currentSong] : ''
+
     return (
       <audio src={music.src} ref="audio" onCanPlay={()=>this.canplay()} id="audio"></audio>
     ) 

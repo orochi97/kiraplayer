@@ -14,7 +14,7 @@ const listItems = (musicList, currentSong, choose) => {
   )
 }
 
-function chooseDir() {
+function chooseDir(changeState) {
   const require = window.require
   const dialog = require('electron').remote.dialog
   dialog.showOpenDialog({
@@ -25,6 +25,7 @@ function chooseDir() {
     if (files && !files.canceled){
       const filePath = files.filePaths[0]
       EventBus.emit('chooseDir', filePath)
+      changeState('stop')
     }
   })
 }
@@ -38,10 +39,10 @@ class List extends Component {
     chooseSong(this.props, index)
   }
   render() {
-    const { musicList, currentSong } = this.props
+    const { musicList, currentSong, changeState } = this.props
     return (
       <div className="song-list">
-        <input type="button" className="button" onClick={(e) => chooseDir()} value="选择歌曲"/>
+        <input type="button" className="button" onClick={(e) => chooseDir(changeState)} value="选择歌曲"/>
         <div className="list"></div>
         <div className="song">
           {listItems(musicList, currentSong, this.choose.bind(this))}

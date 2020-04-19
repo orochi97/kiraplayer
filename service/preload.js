@@ -12,6 +12,7 @@ async function importMusic(dir) {
 	const { musicList, sort } = await getMusicList(dir)
 	config.musicList = musicList
 	config.sort = sort
+	config.currentSong = 0
 	EventBus.emit('updateMusicList', config)
 	setConfig(config)
 }
@@ -24,6 +25,11 @@ window.getSystemInfo = function () {
 
 EventBus.on('chooseDir', (dir) => {
 	importMusic(dir)
+})
+
+EventBus.on('updateConfig', (conf) => {
+	Object.assign(config, conf)
+	setConfig(config)
 })
 
 // const ipcMain = require('electron').remote.ipcMain;

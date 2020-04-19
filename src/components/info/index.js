@@ -25,7 +25,7 @@ class Info extends Component {
   constructor(props) {
     super(props)
     this.toggle = true
-    this._watch = ''
+    this._currentSong = -1
     this._animationRule = 0
     this.state = {
       cover: '',
@@ -34,10 +34,10 @@ class Info extends Component {
     this.setCoverAndTitle()
   }
   componentWillUpdate(nextProps) {
-    this._watch = nextProps.currentSong
+    this._currentSong = nextProps.currentSong
   }
   componentDidUpdate(prevProps) {
-    if (this._watch !== prevProps.currentSong) {
+    if (this._currentSong !== prevProps.currentSong || prevProps.playState === 'init') {
       this.setCoverAndTitle()
     }
     const $title = this.refs.title

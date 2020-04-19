@@ -18,12 +18,19 @@ export function getPos(obj) {
 	return pos
 }
 
-export function chooseSong(props, index, next) {
+export function chooseSong(props, songIndex, next) {
 	const { currentSong, sort, changeState, changeCurrentSong } = props
-	if (!index) {
+	const len = sort.length - 1
+	if (songIndex === null) {
 		const currIndex = sort.findIndex((item)=>{return item === currentSong})
-		index = sort[currIndex + next]
+		let nextIndex = currIndex + next
+		if (nextIndex < 0) {
+			nextIndex = len
+		} else if (nextIndex > len) {
+			nextIndex = 0
+		}
+		songIndex = sort[nextIndex]
 	}	
   changeState('stop')
-  changeCurrentSong(index)
+  changeCurrentSong(songIndex)
 }

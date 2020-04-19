@@ -9,7 +9,8 @@ export const choose = (index) => {
 export const updateMusicList = (config) => {
 	return {
 		type: 'updateMusicList',
-		musicList: config.musicList
+		musicList: config.musicList,
+		sort: config.sort
 	}
 }
 
