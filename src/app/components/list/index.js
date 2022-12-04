@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
-import './index.css'
+import { systemEventBus, electron } from '@/utils/system'
 import connect from '../../redux/connect'
-import EventBus from '../../utils/event-bus'
 import { formatTime, chooseSong } from '../../utils'
+
+import './index.css'
+
+const dialog = electron.remote.dialog;
 
 const listItems = (musicList, currentSong, choose) => {
   return musicList.map((item, index) =>
@@ -15,19 +18,17 @@ const listItems = (musicList, currentSong, choose) => {
 }
 
 function chooseDir(changeState) {
-  const require = window.require
-  const dialog = require('electron').remote.dialog
   dialog.showOpenDialog({
     title: '请选择歌曲文件夹',
     buttonLabel : '确定',
-    properties: ['openDirectory']
-  }).then((files) => {
-    if (files && !files.canceled){
+    properties: ['openDirectory']
+  }).then((files) => {
+    if (files && !files.canceled){
       const filePath = files.filePaths[0]
-      EventBus.emit('chooseDir', filePath)
+      systemEventBus.emit('chooseDir', filePath)
       changeState('stop')
-    }
-  })
+    }
+  })
 }
 
 class List extends Component {

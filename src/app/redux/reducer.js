@@ -1,6 +1,6 @@
-import EventBus from '../utils/event-bus'
+import { systemEventBus, getSystemInfo } from '@/utils/system'
 
-const systemInfo = window.getSystemInfo()
+const systemInfo = getSystemInfo();
 const initValue = Object.assign({
 	playState: 'stop',
 	currentTime: 0,
@@ -24,12 +24,12 @@ function reducer(state = initValue, action) {
     case 'changeState':
       return Object.assign({}, state, { playState: action.playState })
     case 'changeVolume':
-      EventBus.emit('updateConfig', { volume: action.volume })
+      systemEventBus.emit('updateConfig', { volume: action.volume })
       return Object.assign({}, state, { volume: action.volume })
     case 'changeCurrentTime':
       return Object.assign({}, state, { currentTime: action.currentTime })
     case 'changeCurrentSong':
-      EventBus.emit('updateConfig', { currentSong: action.currentSong })
+      systemEventBus.emit('updateConfig', { currentSong: action.currentSong })
       return Object.assign({}, state, { currentSong: action.currentSong })
     case 'changeCurrentDuration':
       return Object.assign({}, state, { currentDuration: action.currentDuration })

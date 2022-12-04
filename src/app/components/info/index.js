@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import './index.css'
+import { musicMetadata } from '@/utils/system'
 import Led from './led'
 import connect from '../../redux/connect'
 import { formatTime } from '../../utils'
 
-const mm = window.require('music-metadata')
+import './index.css'
+
 const coverMap = new Map()
 
 async function getCover(file) {
@@ -12,7 +13,7 @@ async function getCover(file) {
   if (coverMap.has(file)) {
     return coverMap.get(file)
   }
-  const metaData = await mm.parseFile(file, { native: true })
+  const metaData = await musicMetadata.parseFile(file, { native: true })
   let picture = metaData.common.picture
   if (picture && picture.length) {
     picture = picture[0]

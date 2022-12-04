@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import './index.css'
 import connect from '../../redux/connect'
 import Volume from './volume'
 import ProcessBar from './processBar'
 import { chooseSong } from '../../utils'
+
+import './index.css'
 
 class Control extends Component {
   constructor(props){ 

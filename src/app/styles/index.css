@@ -14,17 +14,17 @@ code {
 ul, li, p {padding: 0;margin: 0;}
 @font-face {
     font-family: 'playericons';
-    src:    url("./fonts/playericons.eot");
-    src:    url("./fonts/playericons.eot?#iefix") format('embedded-opentype'), 
-        url("./fonts/playericons.woff") format('woff'), 
-        url("./fonts/playericons.ttf") format('truetype'), 
-        url("./fonts/playericons.svg#playericons") format('svg');
+    src:    url("~@/assets/fonts/playericons.eot");
+    src:    url("~@/assets/fonts/playericons.eot?#iefix") format('embedded-opentype'), 
+        url("~@/assets/fonts/playericons.woff") format('woff'), 
+        url("~@/assets/fonts/playericons.ttf") format('truetype'), 
+        url("~@/assets/fonts/playericons.svg#playericons") format('svg');
     font-weight: normal;
     font-style: normal;
 }
 body {
     font-family: Cambria, Georgia, serif;
-    background: #b6b6b6 url(./image/bg.jpg) fixed no-repeat top center;
+    background: #b6b6b6 url("~@/assets/images/bg.jpg") fixed no-repeat top center;
     font-weight: 400;
     font-size: 15px;
     color: #333;

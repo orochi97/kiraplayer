@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import './index.css'
+import { systemEventBus } from '@/utils/system'
 import Tape from '../tape/index'
 import Info from '../info/index'
 import Control from '../control/index'
 import List from '../list/index'
 import Audio from '../audio'
 import connect from '../../redux/connect'
-import EventBus from '../../utils/event-bus'
+
+import './index.css'
 
 function loading(flag) {
   const dom = document.getElementById('loading')
@@ -20,10 +21,10 @@ class App extends Component {
   }
   componentDidMount() {
     loading(false)
-    EventBus.on('chooseDir', () => {
+    systemEventBus.on('chooseDir', () => {
       loading(true)
     })
-    EventBus.on('updateMusicList', () => {
+    systemEventBus.on('updateMusicList', () => {
       loading(false)
     })
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
+import { systemEventBus } from '@/utils/system'
 import connect from '../../redux/connect'
 import { formatTime, getPos } from '../../utils'
-import EventBus from '../../utils/event-bus'
 
 class ProcessBar extends Component {
   constructor(props){ 
@@ -14,7 +14,7 @@ class ProcessBar extends Component {
   mousedown(e) {
     // 发送至audio组件
     const newcurrentTime = Math.floor((e.pageX - getPos(e.currentTarget).left) *  this.props.currentDuration / this.processBarLen)
-    EventBus.emit('changeCurrentTime', newcurrentTime)
+    systemEventBus.emit('changeCurrentTime', newcurrentTime)
   }
   render() {
     const { currentTime, currentDuration } = this.props

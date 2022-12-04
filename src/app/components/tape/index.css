@@ -13,7 +13,7 @@
     width: 100%;
     height: 100%;
     position: relative;
-    background: transparent url(../../image/cs_back.png) no-repeat center center;
+    background: transparent url(~@/assets/images/cs_back.png) no-repeat center center;
 }
 .vc-tape-wheel {
     width: 125px;
@@ -45,13 +45,13 @@
 .vc-tape-wheel div{
     width: 100%;
     height: 100%;
-    background: transparent url(../../image/cs_wheel.png) no-repeat center center;
+    background: transparent url(~@/assets/images/cs_wheel.png) no-repeat center center;
 }
 .vc-tape-front{
     width: 100%;
     height: 100%;
     position: absolute;
-    background: transparent url(../../image/cs_front.png) no-repeat center center;
+    background: transparent url(~@/assets/images/cs_front.png) no-repeat center center;
     top: 0px;
     left: 0px;
 }

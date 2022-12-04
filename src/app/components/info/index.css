@@ -9,13 +9,13 @@
     justify-content: space-around;
     align-items: center;
     background-color: #fff;
-    background-image: url(../../image/mutou.jpg);
+    background-image: url(~@/assets/images/mutou.jpg);
 }
 .cover {
     width: 80px;
     height: 80px;
     border: 2px solid grey;
-    background-image: url(../../image/cover.png);
+    background-image: url(~@/assets/images/cover.png);
 }
 .cover > img {
     width: 100%;

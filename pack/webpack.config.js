@@ -24,7 +24,7 @@ module.exports = {
   stats: 'errors-only',
   resolve: {
     alias: {
-      '@': resolveApp('src'),
+      '@': resolveApp('src/app'),
     },
   },
   module: {

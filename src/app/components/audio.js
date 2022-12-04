@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
+import { systemEventBus } from '@/utils/system'
 import connect from '../redux/connect'
-import EventBus from '../utils/event-bus'
 import { chooseSong } from '../utils'
 
 class Audio extends Component {
@@ -24,7 +24,7 @@ class Audio extends Component {
   }
   componentDidMount() {
     this.setVolume()
-    EventBus.on('changeCurrentTime', (newcurrentTime) => {
+    systemEventBus.on('changeCurrentTime', (newcurrentTime) => {
       this.refs.audio.currentTime = newcurrentTime
       this.props.changeCurrentTime(newcurrentTime)
       this.props.changeState('play')
