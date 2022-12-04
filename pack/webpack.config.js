@@ -15,7 +15,7 @@ const appPublic = resolveApp('public');
 const appHtml = resolveApp('public/index.html');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/app/index.js',
   output: {
     path: appBuild, // 打包后的文件存放的地方
     filename: 'static/js/[name].[hash:8].js', // 打包后输出文件的文件名，比如上面打出来就会是 a.js b.js c.js
@@ -93,7 +93,7 @@ module.exports = {
       PUBLIC_URL: JSON.stringify('./'),
     }),
     new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
-      PUBLIC_URL: './public',
+      PUBLIC_URL: '.',
     }),
     function CopyPublicPlugin() {
       this.hooks.done.tapAsync('end', function(stats, callback) {
@@ -101,6 +101,7 @@ module.exports = {
           dereference: true,
           filter: file => file !== appHtml,
         });
+        console.info('Hey app built successfully!');
         callback()
       })
     },
