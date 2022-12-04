@@ -5,14 +5,14 @@
   "author": "cchealthier",
   "main": "electron.js",
   "scripts": {
-    "start:react": "set PORT=8080 && react-scripts start",
+    "start:react": "cross-env NODE_ENV=development webpack-dev-server",
     "start:elec": "cross-env NODE_ENV=development electron .",
     "start": "npm run start:react | npm run start:elec",
     "clean": "rm -rf dist",
-    "build:react": "react-scripts build",
+    "build:react": "cross-env NODE_ENV=production webpack",
     "prebuild:elec": "node pack/index.js",
     "build:elec": "cross-env NODE_ENV=production electron-builder --win --ia32",
-    "build": "npm run clean && npm run build:react && npm run build:elec",
+    "build": "npm run build:react && npm run build:elec",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -81,6 +81,8 @@
     "cross-env": "^7.0.2",
     "electron": "8.0.3",
     "electron-builder": "^22.4.0",
-    "fs-extra": "^8.1.0"
+    "fs-extra": "^8.1.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
   }
 }

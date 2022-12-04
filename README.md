@@ -66,3 +66,39 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+---------------------------------------------------------分割线------------------------------------------------------------------
+
+**上面的是 react 原本的介绍**
+
+### 注意
+
+在没有执行 npm run eject 情况下，重新写了启动和打包 react 工程的命令
+
+`react-scripts start` => `webpack-dev-server`
+
+`react-scripts build` => `webpack`
+
+### `npm run start:react`
+
+启动 App 界面调试模式
+
+### `npm run start:elec`
+
+启动 Electron 服务调试模式
+
+### `npm run start`
+
+启动 App 界面调试模式 + 启动 Electron 服务调试模式
+
+### `npm run build:react`
+
+打包 App 界面代码，输出到 build 文件夹
+
+### `npm run build:elec`
+
+打包整个 Electron 的代码，输出最终产物到 dist 文件夹
+
+### `npm run build`
+
+npm run build:react && npm run build:elec，必须先打包界面的 react 代码，再打包服务的 electron 代码
