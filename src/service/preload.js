@@ -1,10 +1,12 @@
 // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
-const fs = require('fs');
-const path = require('path');
-const glob = require('glob');
+// const fs = require('fs');
+// const path = require('path');
+// const glob = require('glob');
+const { contextBridge } = require('electron');
+const { dialog } = require('@electron/remote')
 const musicMetadata = require('music-metadata');
-const electron = require('electron');
+
 const systemEventBus = require('./event-bus.js');
 const { setConfig, getConfig, getMusicList } = require('./file.js');
 
@@ -38,13 +40,12 @@ systemEventBus.on('updateConfig', (conf) => {
 //   event.sender.send('asynchronous-reply', 'pong');
 // });
 
-Object.defineProperty(window, 'SYSTEM_CONTEXT', {
-  get() {
-    return {
-      electron,
-      musicMetadata,
-      getSystemInfo,
-      systemEventBus,
-    };
-  },
-});
+contextBridge.exposeInMainWorld(
+  'electron',
+  {
+    fileDialog: dialog,
+    musicMetadata,
+    getSystemInfo,
+    systemEventBus,
+  }
+)

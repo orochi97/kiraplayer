@@ -1,5 +1,6 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const { app, BrowserWindow } = require('electron')
+// const { app, BrowserWindow } = require('@electron/remote')
 const path = require('path')
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
@@ -11,10 +12,16 @@ function createWindow () {
     height: 760,
     resizable: false,
     webPreferences: {
-      webSecurity: false,
+      nodeIntegration: true,
+      enableRemoteModule: true,
+      // webSecurity: false,
       preload: path.join(__dirname, 'service/preload.js')
     }
   })
+
+  require('@electron/remote/main').initialize();
+  require("@electron/remote/main").enable(mainWindow.webContents);
+
   if (process.env.NODE_ENV === 'development') {
     mainWindow.loadURL('http://localhost:8080/')
   } else {

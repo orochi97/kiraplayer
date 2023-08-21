@@ -14,6 +14,7 @@ async function getCover(file) {
     return coverMap.get(file)
   }
   const metaData = await musicMetadata.parseFile(file, { native: true })
+
   let picture = metaData.common.picture
   if (picture && picture.length) {
     picture = picture[0]

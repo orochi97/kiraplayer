@@ -1,11 +1,21 @@
 const fs = require('fs')
 const path = require('path')
+const os = require('os')
 const glob = require('glob')
 const fse = require('fs-extra')
 const mm = require('music-metadata')
 const defaultConf = require('./default.js')
 
-const configJson = path.join(process.cwd(), 'config.json')
+const configJson = getConfigJsonPath()
+
+console.log(1111, configJson)
+
+function getConfigJsonPath() {
+  if (['win32'].includes(process.platform)) {
+    return path.join(process.cwd(), 'config.json');
+  }
+  return path.join(os.homedir(), 'config.json');
+};
 
 function getMusicFile(dir) {
   let files = glob.sync('*.mp3', {

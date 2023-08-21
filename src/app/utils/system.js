@@ -1,12 +1,12 @@
 const {
-  electron,
+  fileDialog,
   musicMetadata,
   getSystemInfo,
   systemEventBus,
-} = window.SYSTEM_CONTEXT;
+} = window.electron;
 
 export {
-  electron,
+  fileDialog,
   musicMetadata,
   getSystemInfo,
   systemEventBus,

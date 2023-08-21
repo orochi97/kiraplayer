@@ -11,7 +11,7 @@
     "clean": "rm -rf dist build",
     "build:react": "cross-env NODE_ENV=production webpack --config pack/webpack.config.js",
     "prebuild:elec": "node pack/prebuild.js",
-    "build:elec": "cross-env NODE_ENV=production electron-builder --win --ia32",
+    "build:elec": "cross-env NODE_ENV=production electron-builder --mac --arm64",
     "build": "npm run build:react && npm run build:elec",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -66,11 +66,12 @@
     ]
   },
   "dependencies": {
+    "@electron/remote": "^2.0.9",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "glob": "^7.1.6",
-    "music-metadata": "^4.1.0",
+    "music-metadata": "^7.13.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.2.0",
@@ -79,8 +80,8 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.2",
-    "electron": "8.0.3",
-    "electron-builder": "^22.4.0",
+    "electron": "^24.1.2",
+    "electron-builder": "^23.6.0",
     "fs-extra": "^8.1.0",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.11.1"
