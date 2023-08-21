@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { systemEventBus } from '@/utils/system'
 import connect from '../redux/connect'
-import { chooseSong } from '../utils'
+import { chooseSong, formatSongSrc } from '../utils'
 
 class Audio extends Component {
   constructor(props){
@@ -80,7 +80,7 @@ class Audio extends Component {
     const music = musicList.length ? musicList[currentSong] : ''
 
     return (
-      <audio src={music.src} ref="audio" onCanPlay={()=>this.canplay()} id="audio"></audio>
+      <audio src={formatSongSrc(music.src)} ref="audio" onCanPlay={()=>this.canplay()} id="audio"></audio>
     ) 
   }
 }

@@ -1,14 +1,12 @@
-const fs = require('fs')
-const path = require('path')
-const os = require('os')
-const glob = require('glob')
-const fse = require('fs-extra')
-const mm = require('music-metadata')
-const defaultConf = require('./default.js')
+const fs = require('fs');
+const path = require('path');
+const os = require('os');
+const glob = require('glob');
+const fse = require('fs-extra');
+const mm = require('music-metadata');
+const defaultConf = require('./default.js');
 
-const configJson = getConfigJsonPath()
-
-console.log(1111, configJson)
+const configJson = getConfigJsonPath();
 
 function getConfigJsonPath() {
   if (['win32'].includes(process.platform)) {
@@ -54,6 +52,17 @@ async function getMusicList(dir) {
   return { musicList, sort }
 }
 
+async function getMusicCover(file) {
+  try {
+    const {common} = await mm.parseFile(file);
+    const cover = mm.selectCover(common.picture); // pick the cover image
+    return`data:${cover.format};base64,${cover.data.toString('base64')}`;
+  } catch (error) {
+    console.error('get music cover fail: ', error.message);
+    return '';
+  }
+}
+
 function getConfig() {
   let config = Object.assign({}, defaultConf)
   if (fs.existsSync(configJson)) {
@@ -69,5 +78,6 @@ function setConfig(config) {
 module.exports = {
   getConfig,
   setConfig,
-  getMusicList
+  getMusicList,
+  getMusicCover,
 }

@@ -1,3 +1,12 @@
+export const isDev = NODE_ENV === 'development';
+
+export function formatSongSrc(src) {
+	if (isDev) {
+		return DEV_SONG_PREFIX + src;
+	}
+	return src;
+}
+
 export function formatTime(time) {
 	if (!time) {
 		return '00:00';

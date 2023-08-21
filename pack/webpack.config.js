@@ -14,6 +14,9 @@ const appBuild = resolveApp('build');
 const appPublic = resolveApp('public');
 const appHtml = resolveApp('public/index.html');
 
+const DEV_SONG_PREFIX = '/dev-song';
+const devSongPrefixReg = new RegExp(`^${DEV_SONG_PREFIX}`);
+
 module.exports = {
   entry: './src/app/index.js',
   output: {
@@ -91,6 +94,8 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       PUBLIC_URL: JSON.stringify('./'),
+      DEV_SONG_PREFIX: JSON.stringify(DEV_SONG_PREFIX),
+      NODE_ENV: JSON.stringify(process.env.NODE_ENV),
     }),
     new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
       PUBLIC_URL: '.',
@@ -113,5 +118,17 @@ module.exports = {
     port: 8080,
     hot: true,
     // open: true,
+    setupMiddlewares: function (middlewares, devServer) {
+      if (!devServer) {
+        throw new Error('webpack-dev-server is not defined');
+      }
+      // 调试时候，audio 标签 src 指向的是本地绝对地址，请求会变成：本地域名/歌曲绝对地址，导致文件不存在
+      // 在调试时，路径加上前缀，然后在服务器中间件做处理返回相应的文件流
+      devServer.app.get(devSongPrefixReg, (req, res) => {
+        const song = decodeURI(req.path.replace(devSongPrefixReg, ''));
+        res.sendFile(song);
+      });
+      return middlewares;
+    },
   },
 }

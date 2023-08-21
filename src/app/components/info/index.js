@@ -1,26 +1,20 @@
 import React, { Component } from 'react'
-import { musicMetadata } from '@/utils/system'
+import { getMusicCover } from '@/utils/system'
 import Led from './led'
 import connect from '../../redux/connect'
 import { formatTime } from '../../utils'
 
 import './index.css'
 
-const coverMap = new Map()
+const coverMap = new Map();
 
 async function getCover(file) {
-  let cover = ''
   if (coverMap.has(file)) {
-    return coverMap.get(file)
+    return coverMap.get(file);
   }
-  const metaData = await musicMetadata.parseFile(file, { native: true })
-
-  let picture = metaData.common.picture
-  if (picture && picture.length) {
-    picture = picture[0]
-    cover = `data:${picture.format};base64,${picture.data.toString('base64')}`
-  }
-  return cover
+  const cover = await getMusicCover(file);
+  coverMap.set(file, cover);
+  return cover;
 }
 
 class Info extends Component {

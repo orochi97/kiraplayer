@@ -1,13 +1,13 @@
 const {
   fileDialog,
-  musicMetadata,
   getSystemInfo,
   systemEventBus,
+  getMusicCover,
 } = window.electron;
 
 export {
   fileDialog,
-  musicMetadata,
   getSystemInfo,
   systemEventBus,
+  getMusicCover,
 };
