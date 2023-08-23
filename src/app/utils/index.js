@@ -1,4 +1,4 @@
-import store, { changeState, changeCurrentSong } from '@/redux/store';
+import store, { changeState, changeCurrentSong } from '@/store';
 import { PLAY_STATE } from '@/utils/const';
 
 export const isDev = NODE_ENV === 'development';
