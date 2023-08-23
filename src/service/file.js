@@ -17,39 +17,39 @@ function getConfigJsonPath() {
 
 function getMusicFile(dir) {
   let files = glob.sync('*.mp3', {
-    cwd: dir
-  })
+    cwd: dir,
+  });
   files = files.sort((a, b) => {
-    return b.localeCompare(a)
+    return b.localeCompare(a);
   }).map((f) => {
     return {
       file: f,
-      src: path.join(dir, f)
-    }
-  })
-  return files
+      src: path.join(dir, f),
+    };
+  });
+  return files;
 }
 
 async function parseMusic(music) {
-  const metaData = await mm.parseFile(music.src, { native: true })
-  music.duration = Math.ceil(metaData.format.duration)
-  const { title, album, artist } = metaData.common
-  Object.assign(music, { title, album, artist })
+  const metaData = await mm.parseFile(music.src, { native: true });
+  music.duration = Math.ceil(metaData.format.duration);
+  const { title, album, artist } = metaData.common;
+  Object.assign(music, { title, album, artist });
 }
 
 async function getMusicList(dir) {
-  const musicList = getMusicFile(dir)
-  const sort = []
+  const musicList = getMusicFile(dir);
+  const sort = [];
   for (let i = 0, l = musicList.length; i < l; i++) {
-    const music = musicList[i]
+    const music = musicList[i];
     try {
-      await parseMusic(music)
+      await parseMusic(music);
       sort.push(i)
     } catch (e) {
-      console.error(`歌曲 ${music.src} 解析错误`, e)
+      console.error(`歌曲 ${music.src} 解析错误`, e);
     }
   }
-  return { musicList, sort }
+  return { musicList, sort };
 }
 
 async function getMusicCover(file) {
@@ -64,15 +64,15 @@ async function getMusicCover(file) {
 }
 
 function getConfig() {
-  let config = Object.assign({}, defaultConf)
+  let config = Object.assign({}, defaultConf);
   if (fs.existsSync(configJson)) {
-    config = fse.readJsonSync(configJson)
+    config = fse.readJsonSync(configJson);
   }
-  return config
+  return config;
 }
 
 function setConfig(config) {
-  fse.writeJsonSync(configJson, config)
+  fse.writeJsonSync(configJson, config);
 }
 
 module.exports = {

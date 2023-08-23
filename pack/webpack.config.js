@@ -24,6 +24,7 @@ module.exports = {
     filename: 'static/js/[name].[hash:8].js', // 打包后输出文件的文件名，比如上面打出来就会是 a.js b.js c.js
   },
   mode: isDev ? 'development' : 'production',
+  devtool: isDev ? 'sourcemap' : false,
   stats: 'errors-only',
   resolve: {
     alias: {

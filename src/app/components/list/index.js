@@ -1,55 +1,97 @@
-import React, { Component } from 'react'
-import { systemEventBus, fileDialog } from '@/utils/system'
-import connect from '../../redux/connect'
-import { formatTime, chooseSong } from '../../utils'
+import React, { useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { systemEventBus, fileDialog } from '@/utils/system';
+import { changeState } from '@/redux/store';
+import connect from '@/redux/connect';
+import { formatTime, chooseSong } from '@/utils';
+import { PLAY_STATE } from '@/utils/const';
 
-import './index.css'
+import './index.css';
 
-const listItems = (musicList, currentSong, choose) => {
-  return musicList.map((item, index) =>
-    <div className="one-song" title={item.file} key={index} onDoubleClick={(e) => choose(index)}>
-      <span className="index">{index + 1}</span>
-      <span className={`title ${(index)===currentSong?"active":null}`}>{item.file}</span>
-      <span className="total">{formatTime(item.duration)}</span>
-    </div>
-  )
-}
+// function chooseDir(changeState) {
+//   fileDialog.showOpenDialog({
+//     title: '请选择歌曲文件夹',
+//     buttonLabel : '确定',
+//     properties: ['openDirectory']
+//   }).then((files) => {
+//     if (files && !files.canceled){
+//       const filePath = files.filePaths[0]
+//       systemEventBus.emit('chooseDir', filePath)
+//       changeState('stop')
+//     }
+//   })
+// }
 
-function chooseDir(changeState) {
-  fileDialog.showOpenDialog({
-    title: '请选择歌曲文件夹',
-    buttonLabel : '确定',
-    properties: ['openDirectory']
-  }).then((files) => {
-    if (files && !files.canceled){
-      const filePath = files.filePaths[0]
-      console.log(11111, filePath)
-      systemEventBus.emit('chooseDir', filePath)
-      changeState('stop')
-    }
-  })
-}
+// const listItems = (musicList, currentSong, choose) => {
+//   return musicList.map((item, index) =>
+//     <div className="one-song" title={item.file} key={index} onDoubleClick={(e) => choose(index)}>
+//       <span className="index">{index + 1}</span>
+//       <span className={`title ${(index)===currentSong?"active":null}`}>{item.file}</span>
+//       <span className="total">{formatTime(item.duration)}</span>
+//     </div>
+//   )
+// }
 
-class List extends Component {
-  constructor(props, context) {
-    super(props)
-    this.state = {}
-  }
-  choose(index) {
-    chooseSong(this.props, index)
-  }
-  render() {
-    const { musicList, currentSong, changeState } = this.props
-    return (
-      <div className="song-list">
-        <input type="button" className="button" onClick={(e) => chooseDir(changeState)} value="选择歌曲"/>
-        <div className="list"></div>
-        <div className="song">
-          {listItems(musicList, currentSong, this.choose.bind(this))}
-        </div>
+// class List extends Component {
+//   constructor(props, context) {
+//     super(props)
+//     this.state = {}
+//   }
+//   choose(index) {
+//     chooseSong(this.props, index)
+//   }
+//   render() {
+//     const { musicList, currentSong, changeState } = this.props
+//     return (
+//       <div className="song-list">
+//         <input type="button" className="button" onClick={(e) => chooseDir(changeState)} value="选择歌曲"/>
+//         <div className="list"></div>
+//         <div className="song">
+//           {listItems(musicList, currentSong, this.choose.bind(this))}
+//         </div>
+//       </div>
+//     )
+//   }
+// }
+
+function List() {
+  const { musicList, currentSong } = useSelector(state => state);
+  const dispatch = useDispatch();
+
+  const choose = useCallback((index) => {
+    chooseSong(index);
+  }, []);
+
+  const chooseDir = useCallback(() => {
+    fileDialog.showOpenDialog({
+      title: '请选择歌曲文件夹',
+      buttonLabel : '确定',
+      properties: ['openDirectory'],
+    }).then((files) => {
+      if (files && !files.canceled){
+        systemEventBus.emit('chooseDir', files.filePaths[0]);
+        dispatch(changeState(PLAY_STATE.STOP));
+      }
+    });
+  }, [dispatch]);
+
+  return (
+    <div className="song-list">
+      <input type="button" className="button" onClick={chooseDir} value="选择歌曲"/>
+      <div className="list"></div>
+      <div className="song">
+        {
+          musicList.map((item, index) =>
+            <div className="one-song" title={item.file} key={index} onDoubleClick={() => choose(index)}>
+              <span className="index">{index + 1}</span>
+              <span className={`title ${(index)===currentSong?"active":null}`}>{item.file}</span>
+              <span className="total">{formatTime(item.duration)}</span>
+            </div>
+          )
+        }
       </div>
-    )
-  }
+    </div>
+  );
 }
 
 export default connect(List)

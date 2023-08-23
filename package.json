@@ -7,7 +7,7 @@
   "scripts": {
     "start:react": "cross-env NODE_ENV=development webpack-dev-server --config pack/webpack.config.js",
     "start:elec": "cross-env NODE_ENV=development electron .",
-    "start": "npm run start:react | npm run start:elec",
+    "start": "npm run start:react & npm run start:elec",
     "clean": "rm -rf dist build",
     "build:react": "cross-env NODE_ENV=production webpack --config pack/webpack.config.js",
     "prebuild:elec": "node pack/prebuild.js",
@@ -72,8 +72,8 @@
     "@testing-library/user-event": "^7.1.2",
     "glob": "^7.1.6",
     "music-metadata": "^7.13.0",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-redux": "^7.2.0",
     "react-scripts": "3.3.0",
     "redux": "^4.0.5"

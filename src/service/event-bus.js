@@ -1,15 +1,4 @@
-// const events = require('events')
-// const systemEventBus = new events.EventEmitter()
-
-// // 传递到 web 那边，原型方法会丢失
-// // eslint-disable-next-line no-self-assign
-// systemEventBus.on = systemEventBus.on;
-// // eslint-disable-next-line no-self-assign
-// systemEventBus.emit = systemEventBus.emit;
-
-// module.exports = systemEventBus
-
-class EventEmitter {
+class EventBus {
   constructor () {
     this.queue = {};
     this.onceQueue = {};
@@ -65,7 +54,7 @@ class EventEmitter {
   }
 }
 
-const systemEventBus = new EventEmitter();
+const systemEventBus = new EventBus();
 
 // 传递到 web 那边，原型方法会丢失
 // eslint-disable-next-line no-self-assign

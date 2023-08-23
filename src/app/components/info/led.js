@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const map = {
   off: [],
@@ -12,19 +12,19 @@ const map = {
   6: ['a', 'b', 'd', 'e', 'f', 'g'],
   7: ['a', 'c', 'f'],
   8: ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
-  9: ['a', 'b', 'c', 'd', 'f', 'g']
-}
+  9: ['a', 'b', 'c', 'd', 'f', 'g'],
+};
 
 function show(segs, seg) {
-  return segs.indexOf(seg) !== -1 ? 'enable' : null
+  return segs.indexOf(seg) !== -1 ? 'enable' : null;
 }
 
 function Led(props) {
-  let num = props.num
+  let num = props.num;
   if (isNaN(num) && (num < 0 || num > 9)) {
-    num = 'off'
+    num = 'off';
   }
-  const segs = map[num]
+  const segs = map[num];
   return (
     <div className="led">
       <div className="area-1">
@@ -45,7 +45,7 @@ function Led(props) {
         <i className={`seg pin-g ${show(segs, 'g')}`}></i>
       </div>
     </div>
-  )
+  );
 }
 
-export default Led
+export default Led;
