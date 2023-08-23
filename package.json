@@ -1,6 +1,6 @@
 {
   "name": "kira-player",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A minimal Electron application",
   "author": "cchealthier",
   "main": "./src/electron.js",
@@ -13,11 +13,21 @@
     "prebuild:elec": "node pack/prebuild.js",
     "build:elec": "cross-env NODE_ENV=production electron-builder --mac --arm64",
     "build": "npm run build:react && npm run build:elec",
+    "lint": "eslint --ext .jsx,.js src --fix",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "npm run lint"
+    ]
+  },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "globals": {
+      "NODE_ENV": "readonly",
+      "DEV_SONG_PREFIX": "readonly"
+    }
   },
   "homepage": "./",
   "build": {
@@ -81,9 +91,17 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.2",
+    "css-loader": "^6.8.1",
     "electron": "^24.1.2",
     "electron-builder": "^23.6.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-webpack-plugin": "^4.0.1",
+    "file-loader": "^6.2.0",
     "fs-extra": "^8.1.0",
+    "html-webpack-plugin": "^5.5.3",
+    "mini-css-extract-plugin": "^2.7.6",
+    "url-loader": "^4.1.1",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.11.1"
   }

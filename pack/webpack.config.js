@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 const appDirectory = process.cwd();
 const isDev = process.env.NODE_ENV === 'development';
@@ -21,7 +22,7 @@ module.exports = {
   entry: './src/app/index.js',
   output: {
     path: appBuild, // 打包后的文件存放的地方
-    filename: 'static/js/[name].[hash:8].js', // 打包后输出文件的文件名，比如上面打出来就会是 a.js b.js c.js
+    filename: 'static/js/[name].[contenthash:8].js', // 打包后输出文件的文件名，比如上面打出来就会是 a.js b.js c.js
   },
   mode: isDev ? 'development' : 'production',
   devtool: isDev ? 'sourcemap' : false,
@@ -59,7 +60,7 @@ module.exports = {
       {
         //文件加载器，处理文件静态资源
         test: /\.(woff|woff2|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'file-loader?name=./fonts/[name].[ext]',
+        loader: 'file-loader',
         options: {
           name: 'static/media/[name].[hash:8].[ext]',
         },
@@ -75,6 +76,9 @@ module.exports = {
     ]
   },
   plugins: [
+    new ESLintPlugin({
+      extensions: ['.js', '.jsx'],
+    }), // https://eslint.org/docs/latest/integrate/nodejs-api#-new-eslintoptions
     new HtmlWebpackPlugin({ // 模板生成相关的配置，每一个对于一个页面的配置，有几个写几个
       // favicon: resolveApp('public/favicon.ico'), //favicon路径，经过webpack引入同时能够生成hash值
       // filename: '/index.html',//生成的html存放路径，相对于 path
@@ -108,7 +112,7 @@ module.exports = {
           filter: file => file !== appHtml,
         });
         console.info('Hey app built successfully!');
-        callback()
+        callback();
       })
     },
   ],
