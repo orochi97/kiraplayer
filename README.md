@@ -71,7 +71,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 **上面的是 react 原本的介绍**
 
-### 注意
+## 注意
 
 在没有执行 npm run eject 情况下，重新写了启动和打包 react 工程的命令
 
@@ -102,3 +102,17 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 ### `npm run build`
 
 npm run build:react && npm run build:elec，必须先打包界面的 react 代码，再打包服务的 electron 代码
+
+## 碎碎念
+
+一开始在网上看到复古的播放器样式，就想着结合练手 electron 和 react，做一个播放器。
+
+初始用的都是低版本的 electron 和 react。最近都升级了版本，又改成 hook 写法。相当于重构了一下。
+
+界面如下：
+
+![snapshot.png](https://github.com/orochi97/kiraplayer/blob/master/images/snapshot.png)
+
+**播放器样式取于网上，侵权删。**
+
+**The player style is taken from the Internet, and the infringement will be deleted.**
