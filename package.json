@@ -41,6 +41,7 @@
       "service/*"
     ],
     "mac": {
+      "icon": "./build/kira.ico",
       "target": [
         "dmg",
         "zip"
@@ -90,6 +91,8 @@
     "redux": "^4.0.5"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0",
     "cross-env": "^7.0.2",
     "css-loader": "^6.8.1",
     "electron": "^24.1.2",
@@ -97,11 +100,11 @@
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-react": "^7.33.2",
     "eslint-webpack-plugin": "^4.0.1",
-    "file-loader": "^6.2.0",
     "fs-extra": "^8.1.0",
     "html-webpack-plugin": "^5.5.3",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
     "mini-css-extract-plugin": "^2.7.6",
-    "url-loader": "^4.1.1",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.11.1"
   }

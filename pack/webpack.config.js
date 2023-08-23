@@ -25,7 +25,7 @@ module.exports = {
     filename: 'static/js/[name].[contenthash:8].js', // 打包后输出文件的文件名，比如上面打出来就会是 a.js b.js c.js
   },
   mode: isDev ? 'development' : 'production',
-  devtool: isDev ? 'sourcemap' : false,
+  devtool: isDev ? 'source-map' : false,
   stats: 'errors-only',
   resolve: {
     alias: {
@@ -60,17 +60,16 @@ module.exports = {
       {
         //文件加载器，处理文件静态资源
         test: /\.(woff|woff2|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'file-loader',
-        options: {
-          name: 'static/media/[name].[hash:8].[ext]',
+        type: 'asset/resource',
+        generator: {
+          filename: 'static/media/[name].[hash:8].[ext]',
         },
       },
       {
         test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-        loader: require.resolve('url-loader'),
-        options: {
-          limit: 10000,
-          name: 'static/media/[name].[hash:8].[ext]',
+        type: 'asset/resource',
+        generator: {
+          filename: 'static/media/[name].[hash:8].[ext]',
         },
       },
     ]
