@@ -1,9 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeState } from '@/store';
-import { chooseSong } from '@/utils';
+import { storeChangeState, storeChangeCurrentSong } from '@/store';
 import { PLAY_STATE, SONG_INDEX } from '@/utils/const';
-import connect from '@/store/connect';
 import Volume from './volume';
 import ProcessBar from './processBar';
 
@@ -21,39 +19,37 @@ function Control() {
       } else {
         playState = PLAY_STATE.PAUSE;
       }
-      dispatch(changeState(playState));
+      dispatch(storeChangeState(playState));
     },
     prev() {
-      chooseSong(null, SONG_INDEX.BACKWARD);
+      dispatch(storeChangeCurrentSong(null, SONG_INDEX.BACKWARD));
     },
     next() {
-      chooseSong(null, SONG_INDEX.FORWARD);
+      dispatch(storeChangeCurrentSong(null, SONG_INDEX.FORWARD));
     },
     stop() {
-      dispatch(changeState(PLAY_STATE.STOP));
+      dispatch(storeChangeState(PLAY_STATE.STOP));
     },
     switch() {
       console.info('switch');
     },
   });
   const mousedownHandle = useCallback((e) => {
-    e.target.classList.add('vc-control-active');
-  }, []);
+    const $dom = e.target;
+    $dom.classList.add('vc-control-active');
+    const actionName = $dom.dataset.name;
+    actionMap[actionName] && actionMap[actionName](playState);
+  }, [actionMap, playState]);
 
   const mouseupHandle = useCallback((e) => {
     e.target.classList.remove('vc-control-active');
   }, []);
 
-  const clickHandle = useCallback((e) => {
-    const actionName = e.target.dataset.name;
-    actionMap[actionName] && actionMap[actionName](playState);
-  }, [actionMap, playState]);
-
   return (
     <div className="control"> 
       <div id="control-btn">
         <ProcessBar></ProcessBar>
-        <ul className="vc-controls" onClick={(e) => clickHandle(e)} onMouseDown={(e) => mousedownHandle} onMouseUp={(e) => mouseupHandle}>
+        <ul className="vc-controls" onMouseDown={(e) => mousedownHandle(e)} onMouseUp={(e) => mouseupHandle(e)}>
           <li className={`vc-control-play ${playState==='play'?'vc-control-active':null}`} data-name="play">Play<span></span></li>
           <li className="vc-control-prev" data-name="prev">Prev<span></span></li>
           <li className="vc-control-next" data-name="next">Next<span></span></li>
@@ -66,4 +62,4 @@ function Control() {
   );
 }
 
-export default connect(Control);
+export default Control;

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import connect from '@/store/connect';
 import { PLAY_STATE } from '@/utils/const';
 
 import './index.css';
@@ -35,4 +34,4 @@ function Tape() {
   );
 }
 
-export default connect(Tape);
+export default Tape;

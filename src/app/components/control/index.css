@@ -178,6 +178,10 @@ ul.vc-controls li span:before{
     text-align: center;
 }
 
+ul.vc-controls li span {
+    pointer-events: none;
+}
+
 li.vc-control-pause span:before { content: '\50'; } 
 li.vc-control-next span:before { content: '\23e9'; } 
 li.vc-control-prev span:before { content: '\23ea'; } 

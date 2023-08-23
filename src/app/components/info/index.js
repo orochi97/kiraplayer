@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { getMusicCover } from '@/utils/system';
-import connect from '@/store/connect';
 import { formatTime } from '@/utils';
 import { PLAY_STATE } from '@/utils/const';
 import Led from './led';
@@ -93,4 +92,4 @@ function Info() {
   );
 }
 
-export default connect(Info);
+export default Info;

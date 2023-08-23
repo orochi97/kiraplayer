@@ -17,7 +17,7 @@ async function importMusic(dir) {
   config.musicList = musicList;
   config.sort = sort;
   config.currentSong = 0;
-  systemEventBus.emit('updateMusicList', config);
+  systemEventBus.emit('storeChangeMusicList', config);
   setConfig(config);
 }
 

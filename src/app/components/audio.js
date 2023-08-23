@@ -1,9 +1,8 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { systemEventBus } from '@/utils/system';
-import { changeCurrentTime, changeCurrentDuration, changeState } from '@/store';
-import connect from '@/store/connect';
-import { chooseSong, formatSongSrc } from '@/utils';
+import { storeChangeCurrentTime, storeChangeCurrentDuration, storeChangeState, storeChangeCurrentSong } from '@/store';
+import { formatSongSrc } from '@/utils';
 import { PLAY_STATE, SONG_INDEX } from '@/utils/const';
 
 function Audio() {
@@ -21,8 +20,8 @@ function Audio() {
   const canplay = useCallback(() => {
     if (_currentSong !== currentSong) {
       setCurrentSong(currentSong);
-      dispatch(changeCurrentDuration($audio.current.duration));
-      dispatch(changeState(PLAY_STATE.PLAY));
+      dispatch(storeChangeCurrentDuration($audio.current.duration));
+      dispatch(storeChangeState(PLAY_STATE.PLAY));
     } 
   }, [dispatch, _currentSong, currentSong, $audio]);
 
@@ -34,11 +33,10 @@ function Audio() {
     clearInterval(audioRef.current);
     audioRef.current = setInterval(() => {
       if ($audio.current.currentTime >= $audio.current.duration) {
-        chooseSong(null, SONG_INDEX.FORWARD);
+        dispatch(storeChangeCurrentSong(null, SONG_INDEX.FORWARD));
         return;
       }
-      // changeCurrentTime($audio.current.currentTime);
-      dispatch(changeCurrentTime($audio.current.currentTime));
+      dispatch(storeChangeCurrentTime($audio.current.currentTime));
     }, 1000);
   }, [dispatch]);
 
@@ -58,7 +56,7 @@ function Audio() {
         $audio.current.currentTime = 0;
         $audio.current.pause();
         clearInterval(audioRef.current);
-        dispatch(changeCurrentTime(0));
+        dispatch(storeChangeCurrentTime(0));
         break;
       }
       default: break;
@@ -80,8 +78,8 @@ function Audio() {
     setVolume();
     systemEventBus.on('changeCurrentTime', (newcurrentTime) => {
       $audio.current.currentTime = newcurrentTime;
-      dispatch(changeCurrentTime(newcurrentTime));
-      dispatch(changeState(PLAY_STATE.PLAY));
+      dispatch(storeChangeCurrentTime(newcurrentTime));
+      dispatch(storeChangeState(PLAY_STATE.PLAY));
     });
   }, [dispatch, setVolume]);
 
@@ -90,4 +88,4 @@ function Audio() {
   ) 
 }
 
-export default connect(Audio);
+export default Audio;

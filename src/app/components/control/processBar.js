@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { systemEventBus } from '@/utils/system';
-import connect from '@/store/connect';
 import { formatTime, getPos } from '@/utils';
 
 function ProcessBar() {
@@ -41,4 +40,4 @@ function ProcessBar() {
   );
 }
 
-export default connect(ProcessBar);
+export default ProcessBar;

@@ -56,7 +56,10 @@ async function getMusicCover(file) {
   try {
     const {common} = await mm.parseFile(file);
     const cover = mm.selectCover(common.picture); // pick the cover image
-    return`data:${cover.format};base64,${cover.data.toString('base64')}`;
+    if (cover) {
+      return`data:${cover.format};base64,${cover.data.toString('base64')}`;
+    }
+    return '';
   } catch (error) {
     console.error('get music cover fail: ', error.message);
     return '';

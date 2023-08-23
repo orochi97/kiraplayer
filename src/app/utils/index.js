@@ -1,6 +1,3 @@
-import store, { changeState, changeCurrentSong } from '@/store';
-import { PLAY_STATE } from '@/utils/const';
-
 export const isDev = NODE_ENV === 'development';
 
 export function formatSongSrc(src) {
@@ -29,21 +26,4 @@ export function getPos(obj) {
 		obj = obj.offsetParent;
 	}
 	return pos;
-}
-
-export function chooseSong(songIndex, next) {
-	const { currentSong, sort } = store.getState();
-	const len = sort.length - 1;
-	if (songIndex === null) {
-		const currIndex = sort.findIndex((item)=>{return item === currentSong});
-		let nextIndex = currIndex + next;
-		if (nextIndex < 0) {
-			nextIndex = len;
-		} else if (nextIndex > len) {
-			nextIndex = 0;
-		}
-		songIndex = sort[nextIndex];
-	}	
-	store.dispatch(changeState(PLAY_STATE.STOP));
-	store.dispatch(changeCurrentSong(songIndex));
 }

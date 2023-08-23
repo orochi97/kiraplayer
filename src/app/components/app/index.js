@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { systemEventBus } from '@/utils/system';
-import { updateMusicList } from '@/store';
-import connect from '@/store/connect';
+import { storeChangeMusicList } from '@/store';
 import Tape from '../tape';
 import Info from '../info';
 import Control from '../control';
@@ -27,8 +26,8 @@ function App() {
     systemEventBus.on('chooseDir', () => {
       loading(true);
     });
-    systemEventBus.on('updateMusicList', (data) => {
-      dispatch(updateMusicList(data));
+    systemEventBus.on('storeChangeMusicList', (data) => {
+      dispatch(storeChangeMusicList(data));
       loading(false);
     });
   }, [dispatch]);
@@ -46,4 +45,4 @@ function App() {
   );
 }
 
-export default connect(App);
+export default App;

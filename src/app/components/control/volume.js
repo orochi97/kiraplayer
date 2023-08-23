@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeVolume } from '@/store';
-import connect from '@/store/connect';
+import { storeChangeVolume } from '@/store';
 import knobInit from './knob';
 
 function Volume() {
@@ -17,13 +16,13 @@ function Volume() {
   const turnKnob = useCallback((vol) => {
     // 这个需要实时更新视图，不能等异步渲染
     $knob.current.style.transform = getKnobDeg(vol);
-    dispatch(changeVolume(Number(vol)));
+    dispatch(storeChangeVolume(Number(vol)));
   }, [dispatch, getKnobDeg]);
 
   const volumeClick = useCallback((e) => {
     const vol = e.target.dataset.name;
     if (vol) {
-      dispatch(changeVolume(Number(vol)));
+      dispatch(storeChangeVolume(Number(vol)));
     }
   }, [dispatch]);
 
@@ -61,4 +60,4 @@ function Volume() {
   );
 }
 
-export default connect(Volume);
+export default Volume;

@@ -1,9 +1,8 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { systemEventBus, fileDialog } from '@/utils/system';
-import { changeState } from '@/store';
-import connect from '@/store/connect';
-import { formatTime, chooseSong } from '@/utils';
+import { storeChangeState, storeChangeCurrentSong } from '@/store';
+import { formatTime } from '@/utils';
 import { PLAY_STATE } from '@/utils/const';
 
 import './index.css';
@@ -13,8 +12,8 @@ function List() {
   const dispatch = useDispatch();
 
   const choose = useCallback((index) => {
-    chooseSong(index);
-  }, []);
+    dispatch(storeChangeCurrentSong(index));
+  }, [dispatch]);
 
   const chooseDir = useCallback(() => {
     fileDialog.showOpenDialog({
@@ -24,7 +23,7 @@ function List() {
     }).then((files) => {
       if (files && !files.canceled){
         systemEventBus.emit('chooseDir', files.filePaths[0]);
-        dispatch(changeState(PLAY_STATE.STOP));
+        dispatch(storeChangeState(PLAY_STATE.STOP));
       }
     });
   }, [dispatch]);
@@ -48,4 +47,4 @@ function List() {
   );
 }
 
-export default connect(List)
+export default List;

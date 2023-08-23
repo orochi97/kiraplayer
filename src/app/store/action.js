@@ -1,50 +1,53 @@
 // Action
-export const choose = (index) => {
-	return {
-		type: 'choose',
-		index
-	}
-}
+import {
+	CHANGE_STATE,
+	CHANGE_VOLUME,
+	CHANGE_MUSIC_LIST,
+	CHANGE_CURRENT_TIME,
+	CHANGE_CURRENT_SONG,
+	CHANGE_CURRENT_DURATION,
+} from './type';
 
-export const updateMusicList = (config) => {
+export const storeChangeMusicList = (config) => {
 	return {
-		type: 'updateMusicList',
+		type: CHANGE_MUSIC_LIST,
 		musicList: config.musicList,
-		sort: config.sort
+		sort: config.sort,
 	}
-}
+};
 
-export const changeState = (playState) => {
+export const storeChangeState = (playState) => {
 	return {
-		type: 'changeState',
-		playState
+		type: CHANGE_STATE,
+		playState,
 	}
-}
+};
 
-export const changeCurrentTime = (currentTime) => {
+export const storeChangeCurrentTime = (currentTime) => {
 	return {
-		type: 'changeCurrentTime',
-		currentTime
+		type: CHANGE_CURRENT_TIME,
+		currentTime,
 	}
-}
+};
 
-export const changeCurrentSong = (currentSong) => {
+export const storeChangeCurrentSong = (songIndex, next) => {
 	return {
-		type: 'changeCurrentSong',
-		currentSong
+		type: CHANGE_CURRENT_SONG,
+		songIndex,
+		next,
 	}
-}
+};
 
-export const changeCurrentDuration = (currentDuration) => {
+export const storeChangeCurrentDuration = (currentDuration) => {
 	return {
-		type: 'changeCurrentDuration',
-		currentDuration
+		type: CHANGE_CURRENT_DURATION,
+		currentDuration,
 	}
-}
+};
 
-export const changeVolume = (volume) => {
+export const storeChangeVolume = (volume) => {
 	return {
-		type: 'changeVolume',
-		volume
+		type: CHANGE_VOLUME,
+		volume,
 	}
-}
+};
